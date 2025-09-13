@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <header class="text-center mb-4">
+    <h1>Our Products</h1>
+    <p class="lead">Choose from a variety of the best smartphones</p>
+  </header>
+
+  <div class="mb-3">
+    <label for="category" class="form-label">Filter by Category:</label>
+    <select id="category" class="form-select" [(ngModel)]="selectedCategoryID">
+      <option [value]="0">All Products</option>
+      @for(cat of CategoryList; track cat.ID){
+      <option [value]="cat.ID">{{ cat.Name }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="row">
+    @for (product of filteredProducts; track product.productId) {
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img
+          [src]="product.productImgUrl"
+          class="card-img-top"
+          alt="{{ product.productName }}"
+          style="height: 250px; object-fit: cover"
+        />
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ product.productName }}</h5>
+          <p class="card-text">Price: {{ product.productPrice | currency : 'EGP' }}</p>
+          <p class="card-text">Available Quantity: {{ product.productQuantity }}</p>
+
+          <div class="alert alert-info">
+            @switch (product.productQuantity) { @case (0) { <span>Out of Stock</span> } @case (1) {
+            <span>Last Item!</span> } @case (2) { <span>Last Two Items!</span> } @default {
+            <span>In Stock</span> } }
+          </div>
+
+          <div class="mt-auto">
+            <button
+              class="btn w-100 mb-2"
+              [ngClass]="{
+                'btn-primary': product.productQuantity > 2,
+                'btn-warning': product.productQuantity === 2,
+                'btn-danger': product.productQuantity === 1
+              }"
+              (click)="buy(product)"
+              [disabled]="product.productQuantity === 0"
+            >
+              Buy
+            </button>
+
+            <button
+              class="btn btn-outline-info w-100"
+              [routerLink]="['/product', product.productId]"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  @if(filteredProducts.length === 0) {
+  <div class="alert alert-warning text-center">
+    <h4>No products found in this category</h4>
+  </div>
+  }
+</div>

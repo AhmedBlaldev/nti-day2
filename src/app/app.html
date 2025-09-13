@@ -1,57 +1,53 @@
-<div class="container mt-4">
-  <header class="text-center mb-4">
-    <h1>Welcome to {{ storeInfo.Name }}</h1>
-    <img
-      [src]="storeInfo.Logo"
-      alt="Store Logo"
-      class="img-fluid rounded-circle"
-      style="max-width: 100px"
-    />
-    <p class="lead">Our Branches: {{ storeInfo.branches.join(', ') }}</p>
-  </header>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand fw-bold" routerLink="/home">
+      <i class="fas fa-mobile-alt me-2"></i>
+      {{ title }}
+    </a>
 
-  <div class="mb-3">
-    <label for="category" class="form-label">Filter by Category:</label>
-    <select id="category" class="form-select" [(ngModel)]="selectedCategoryID">
-      <option [value]="0">All</option>
-      @for(cat of CategoryList; track cat.ID){
-      <option [value]="cat.ID">{{ cat.Name }}</option>
-      }
-    </select>
-  </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="row">
-    @for (product of filteredProducts; track product.productId) {
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <img [src]="product.productImgUrl" class="card-img-top" alt="{{ product.productName }}" />
-        <div class="card-body">
-          <h5 class="card-title">{{ product.productName }}</h5>
-          <p>{{ product.productDetails }}</p>
-          <p class="card-text">Price: {{ product.productPrice | currency : 'EGP' }}</p>
-          <p class="card-text">Available Quantity: {{ product.productQuantity }}</p>
-
-          <div class="alert alert-info">
-            @switch (product.productQuantity) { @case (0) { <span>Out of Stock</span> } @case (1) {
-            <span>Last one item!</span> } @case (2) { <span>Last two items!</span> } @default {
-            <span>In Stock</span> } }
-          </div>
-
-          <button
-            class="btn w-100"
-            [ngClass]="{
-              'btn-primary': product.productQuantity > 2,
-              'btn-warning': product.productQuantity === 2,
-              'btn-danger': product.productQuantity === 1
-            }"
-            (click)="buy(product)"
-            [disabled]="product.productQuantity === 0"
-          >
-            Buy
-          </button>
-        </div>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">
+            <i class="fas fa-home me-1"></i>
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products" routerLinkActive="active">
+            <i class="fas fa-mobile-alt me-1"></i>
+            Products
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/shop" routerLinkActive="active">
+            <i class="fas fa-shopping-cart me-1"></i>
+            Shop Demo
+          </a>
+        </li>
+      </ul>
     </div>
-    }
   </div>
-</div>
+</nav>
+
+<!-- Main Content -->
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4 mt-5">
+  <div class="container">
+    <p class="mb-0">&copy; 2025 {{ title }}. All rights reserved.</p>
+  </div>
+</footer>

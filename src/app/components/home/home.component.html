@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <div class="jumbotron bg-primary text-white text-center rounded p-5 mb-4">
+    <h1 class="display-4">Welcome to {{ storeInfo.Name }}</h1>
+    <img
+      [src]="storeInfo.Logo"
+      alt="Store Logo"
+      class="img-fluid rounded-circle mb-3"
+      style="max-width: 150px"
+    />
+    <p class="lead">The Best Smartphone Store in Egypt</p>
+    <p class="mb-4">Our Branches: {{ storeInfo.branches.join(' - ') }}</p>
+    <a routerLink="/products" class="btn btn-light btn-lg">Browse Our Products</a>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <i class="fas fa-mobile-alt fa-3x text-primary mb-3"></i>
+          <h5 class="card-title">Latest Phones</h5>
+          <p class="card-text">We offer the latest smartphone models from the best brands</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+          <h5 class="card-title">Trusted Warranty</h5>
+          <p class="card-text">
+            All our products come with official warranty for your peace of mind
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <i class="fas fa-shipping-fast fa-3x text-info mb-3"></i>
+          <h5 class="card-title">Fast Delivery</h5>
+          <p class="card-text">Free delivery to all areas of Cairo and Alexandria</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

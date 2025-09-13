@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h2>Shop Component (Parent)</h2>
+
+      <div class="card mb-4">
+        <div class="card-header">
+          <h4>Product Control Panel</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="productName" class="form-label">Product Name:</label>
+              <input type="text" id="productName" class="form-control" [(ngModel)]="productName" />
+            </div>
+
+            <div class="col-md-4">
+              <label for="productPrice" class="form-label">Product Price:</label>
+              <input
+                type="number"
+                id="productPrice"
+                class="form-control"
+                [(ngModel)]="productPrice"
+              />
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+              <button class="btn btn-warning w-100" (click)="resetProductCard()">
+                Reset Product Card
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-3 p-3 bg-light rounded">
+            <h5>Current Values in Parent:</h5>
+            <p><strong>Name:</strong> {{ productName }}</p>
+            <p><strong>Price:</strong> {{ productPrice | currency : 'EGP' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <app-product-card
+        [name]="productName"
+        [price]="productPrice"
+        (productUpdate)="onProductUpdate($event)"
+      ></app-product-card>
+    </div>
+  </div>
+</div>

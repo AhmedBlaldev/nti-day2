@@ -1,0 +1,104 @@
+<div class="product-card-container">
+  <div
+    class="card product-card"
+    [ngClass]="{
+      'cheap-bg': getPriceCategory() === 'cheap',
+      'standard-bg': getPriceCategory() === 'standard',
+      'premium-bg': getPriceCategory() === 'premium'
+    }"
+  >
+    <div class="card-header">
+      <h4>Product Card (Child Component)</h4>
+      <span
+        class="badge"
+        [ngClass]="{
+          'badge-success': getPriceCategory() === 'cheap',
+          'badge-warning': getPriceCategory() === 'standard',
+          'badge-danger': getPriceCategory() === 'premium'
+        }"
+      >
+        {{ getPriceCategory().toUpperCase() }}
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="received-values mb-3 p-3 bg-light rounded">
+        <h6>Received from Parent (@Input):</h6>
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Price:</strong> {{ price | currency : 'EGP' }}</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label for="childName" class="form-label">Edit Product Name:</label>
+          <input
+            type="text"
+            id="childName"
+            class="form-control"
+            [(ngModel)]="localName"
+            (input)="updateProduct()"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label for="childPrice" class="form-label">Edit Product Price:</label>
+          <input
+            type="number"
+            id="childPrice"
+            class="form-control"
+            [(ngModel)]="localPrice"
+            (input)="updateProduct()"
+          />
+        </div>
+      </div>
+
+      <div class="product-display mt-4 p-4 rounded">
+        <h3
+          [ngStyle]="{
+            'font-weight': isHighPrice() ? 'bold' : 'normal',
+            color: isHighPrice() ? 'red' : 'inherit'
+          }"
+        >
+          {{ localName }}
+        </h3>
+
+        <h4
+          class="price"
+          [ngStyle]="{
+            'font-weight': isHighPrice() ? 'bold' : 'normal',
+            color: isHighPrice() ? 'red' : '#007bff'
+          }"
+        >
+          {{ localPrice | currency : 'EGP' }}
+        </h4>
+
+        <div class="price-info mt-3">
+          <p>
+            <strong>Price Category:</strong>
+            <span
+              [ngClass]="{
+                'text-success': getPriceCategory() === 'cheap',
+                'text-warning': getPriceCategory() === 'standard',
+                'text-danger': getPriceCategory() === 'premium'
+              }"
+            >
+              {{
+                getPriceCategory() === 'cheap'
+                  ? 'Cheap (< 500 EGP)'
+                  : getPriceCategory() === 'standard'
+                  ? 'Standard (500 - 2000 EGP)'
+                  : 'Premium (> 2000 EGP)'
+              }}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <button class="btn btn-secondary w-100" (click)="resetProduct()">
+          Reset to Default (Internal)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
